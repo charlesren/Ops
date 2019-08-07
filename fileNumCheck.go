@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
+
+	"github.com/bitfield/script"
 )
 
 func main() {
@@ -14,7 +15,12 @@ func main() {
 			break
 		} else {
 			fmt.Println("hello")
-			cmd := exec.Command("ls", (*a)[0])
+			p := script.Exec("ls (*a)[0]")
+			output, err := p.String()
+			if err != nil {
+				fmt.Println(output)
+			}
+			fmt.Println(output)
 			*a = (*a)[1:]
 
 		}
