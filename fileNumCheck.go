@@ -19,7 +19,7 @@ func main() {
 		} else {
 			fmt.Println("hello")
 			q := script.NewPipe()
-			cmd := exec.Command("ls", "l", (*a)[0])
+			cmd := exec.Command("ls", "al", (*a)[0])
 			output, err := cmd.CombinedOutput()
 			if err != nil {
 				q.SetError(err)
