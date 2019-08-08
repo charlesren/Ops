@@ -28,7 +28,7 @@ func main() {
 			var totalnum int
 			totalnum, err = q.CountLines()
 			if totalnum > ThordHold {
-				fmt.Println(totalnum)
+				fmt.Printf("Total file and directory num is %v !!!\n", totalnum)
 			}
 
 			*a = (*a)[1:]
