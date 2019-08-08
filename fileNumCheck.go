@@ -19,7 +19,7 @@ func main() {
 		} else {
 			fmt.Println("hello")
 			q := script.NewPipe()
-			cmd := exec.Command("ls", "al", (*a)[0])
+			cmd := exec.Command("ls", "-al", (*a)[0])
 			output, err := cmd.CombinedOutput()
 			if err != nil {
 				q.SetError(err)
@@ -27,12 +27,12 @@ func main() {
 			q.WithReader(bytes.NewReader(output))
 			var totalnum int
 			totalnum, err = q.CountLines()
-			if totalnum > ThordHold {
-				fmt.Printf("Total file and directory num is %v !!!\n", totalnum)
+			if totalnum < ThordHold {
+				fmt.Printf("There are %v file or directory in %v !!!\n", totalnum, (*a)[0])
 			}
-
+			data := string(output)
+			fmt.Println(data)
 			*a = (*a)[1:]
-
 		}
 	}
 }
