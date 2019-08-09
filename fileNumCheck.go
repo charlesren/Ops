@@ -8,7 +8,7 @@ import (
 )
 
 // ThordHold is a level
-var ThordHold = 2000
+var ThordHold = 5
 
 func main() {
 	filepath.Walk("/", checkNum)
@@ -23,9 +23,11 @@ func checkNum(path string, f os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
-		if len(dir) < ThordHold {
+		if len(dir) > ThordHold {
 			fmt.Printf("There are %v file or directory in %v !!!\n", len(dir), path)
+			return nil
 		}
 	}
-	return err
+	//fmt.Println("hello")
+	return nil
 }
