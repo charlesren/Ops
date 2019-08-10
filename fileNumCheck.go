@@ -8,11 +8,22 @@ import (
 )
 
 // ThordHold is a level
-var ThordHold = 5
+var ThordHold = 1000
+
+type file struct {
+	name string
+	num  int
+}
+
+// Files store directory name and file numbers
+var Files []file
+
+// WalkDir define the directory you want to walk
+var WalkDir = "/usr"
 
 func main() {
-	filepath.Walk("/", checkNum)
-
+	filepath.Walk(WalkDir, checkNum)
+	fmt.Println(Files)
 }
 func checkNum(path string, f os.FileInfo, err error) error {
 	if f == nil {
@@ -24,10 +35,13 @@ func checkNum(path string, f os.FileInfo, err error) error {
 			return err
 		}
 		if len(dir) > ThordHold {
+			iter := file{}
+			iter.name = path
+			iter.num = len(dir)
 			fmt.Printf("There are %v file or directory in %v !!!\n", len(dir), path)
+			Files = append(Files, iter)
 			return nil
 		}
 	}
-	//fmt.Println("hello")
 	return nil
 }
