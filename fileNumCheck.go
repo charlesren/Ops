@@ -1,11 +1,10 @@
-package main
+package ops
 
 import (
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 // ThordHold is a level
@@ -46,12 +45,4 @@ func checkNum(path string, f os.FileInfo, err error) error {
 		}
 	}
 	return nil
-}
-
-// SaveData save check result
-func SaveData() string {
-	cfgItem := "abc#1,25;1,30;2,35;4,40#5"
-	checkHold := strings.Split(cfgItem, "#")[1]
-	fmt.Println(checkHold)
-	return checkHold
 }
