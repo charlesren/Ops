@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // ThordHold is a level
@@ -24,6 +25,10 @@ var WalkDir = "/usr"
 func main() {
 	filepath.Walk(WalkDir, checkNum)
 	fmt.Println(Files)
+	a := "abc#1,25;1,30;2,35;4,40#5"
+	b := strings.Split(a, "#")[1]
+	fmt.Println(b)
+
 }
 func checkNum(path string, f os.FileInfo, err error) error {
 	if f == nil {
