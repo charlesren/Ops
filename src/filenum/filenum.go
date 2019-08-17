@@ -1,14 +1,13 @@
-package ops
+package filenum
 
 import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 )
 
-// ThordHold is a level
-var ThordHold = 1000
+// ThordHold is a leve
+var ThordHold int
 
 type file struct {
 	name string
@@ -19,14 +18,10 @@ type file struct {
 var Files []file
 
 // WalkDir define the directory you want to walk
-var WalkDir = "/usr"
+//var WalkDir string
 
-func main() {
-	filepath.Walk(WalkDir, checkNum)
-	fmt.Println(Files)
-	SaveData()
-}
-func checkNum(path string, f os.FileInfo, err error) error {
+// CheckNum is a walkfunc  used to check which directory had files over the thordhold
+func CheckNum(path string, f os.FileInfo, err error) error {
 	if f == nil {
 		return err
 	}
