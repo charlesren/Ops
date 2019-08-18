@@ -6,6 +6,9 @@ import (
 	"strings"
 )
 
+// StCode is check result code
+var StCode int
+
 // SaveData save check result
 func SaveData() string {
 	cfgItem := "abc#0,25;1,30;2,35;4,40#5"
@@ -16,21 +19,25 @@ func SaveData() string {
 
 // GetStCode return status code
 func GetStCode(data float64, cfgItem string) int {
-	vLower := -99999999999
-	vUpper := 999999999999
+	StCode = 6
+	vLower := float64(-99999999999)
+	fmt.Printf("Default lower is %v\n", vLower)
+	vUpper := float64(999999999999)
+	fmt.Printf("Default upper is %v\n", vUpper)
 	thordHolds := strings.Split(cfgItem, "#")[1]
 	thordHold := strings.Split(thordHolds, ";")
-	for _, t := range thordHold {
-		code := strings.Split(t, ",")[0]
-		code1, _ := strconv.Atoi(code)
-		fmt.Println(code1)
-		thord := strings.Split(t, ",")[1]
-		thord1, _ := strconv.ParseFloat(thord, 64)
-		fmt.Println(thord1)
+	for _, td := range thordHold {
+		codeString := strings.Split(td, ",")[0]
+		code, _ := strconv.Atoi(codeString)
+		thordString := strings.Split(td, ",")[1]
+		thord, _ := strconv.ParseFloat(thordString, 64)
+		if thord >= data && thord < vUpper {
+			StCode = code
+			vUpper = thord
+		}
 	}
-	fmt.Println(thordHolds)
-	fmt.Println(vLower)
-	fmt.Println(vUpper)
-
-	return 1
+	if StCode == 6 {
+		fmt.Println("function err")
+	}
+	return StCode
 }
