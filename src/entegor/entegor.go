@@ -2,6 +2,7 @@ package entegor
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -18,8 +19,18 @@ func GetStCode(data float64, cfgItem string) int {
 	vLower := -99999999999
 	vUpper := 999999999999
 	thordHolds := strings.Split(cfgItem, "#")[1]
+	thordHold := strings.Split(thordHolds, ";")
+	for _, t := range thordHold {
+		code := strings.Split(t, ",")[0]
+		code1, _ := strconv.Atoi(code)
+		fmt.Println(code1)
+		thord := strings.Split(t, ",")[1]
+		thord1, _ := strconv.ParseFloat(thord, 64)
+		fmt.Println(thord1)
+	}
 	fmt.Println(thordHolds)
 	fmt.Println(vLower)
 	fmt.Println(vUpper)
+
 	return 1
 }
