@@ -31,7 +31,7 @@ func GetStCode(data float64, cfgItem string) int {
 	firstStCodeString := strings.Split(thordHold[0], ",")[0]
 	firstStCode, _ := strconv.Atoi(firstStCodeString)
 	var Thord float64
-	var ThordFirst string
+	var ThordZero string
 	var ThordLast string
 	var Right string
 	for index, td := range thordHold {
@@ -44,8 +44,8 @@ func GetStCode(data float64, cfgItem string) int {
 			vUpper = thord
 			Thord = thord
 		}
-		if index == 0 {
-			ThordFirst = thordString
+		if code == 0 {
+			ThordZero = thordString
 		}
 		if index == (len(thordHold) - 1) {
 			ThordLast = thordString
@@ -55,13 +55,13 @@ func GetStCode(data float64, cfgItem string) int {
 		StCode = otherStCode
 	}
 	if firstStCode < otherStCode {
-		Right = "[0" + " " + ThordFirst + "]"
+		Right = "[0" + " " + ThordZero + "]"
 	} else {
 		Right = "[" + ThordLast + " " + "Max]"
 	}
 	fmt.Println(firstStCode)
 	fmt.Println(Thord)
-	fmt.Printf("ThordFist is %v\n", ThordFirst)
+	fmt.Printf("ThordZero is %v\n", ThordZero)
 	fmt.Printf("ThordLast is %v\n", ThordLast)
 	fmt.Println(Right)
 	return StCode
