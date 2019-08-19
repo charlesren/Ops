@@ -19,14 +19,22 @@ func SaveData() string {
 
 // GetStCode return status code
 func GetStCode(data float64, cfgItem string) int {
-	StCode = 6
+	StCode = 110
 	vLower := float64(-99999999999)
 	fmt.Printf("Default lower is %v\n", vLower)
 	vUpper := float64(999999999999)
 	fmt.Printf("Default upper is %v\n", vUpper)
 	thordHolds := strings.Split(cfgItem, "#")[1]
 	thordHold := strings.Split(thordHolds, ";")
-	for _, td := range thordHold {
+	otherStCodeString := strings.Split(cfgItem, "#")[2]
+	otherStCode, _ := strconv.Atoi(otherStCodeString)
+	firstStCodeString := strings.Split(thordHold[0], ",")[0]
+	firstStCode, _ := strconv.Atoi(firstStCodeString)
+	var Thord float64
+	var ThordFirst string
+	var ThordLast string
+	var Right string
+	for index, td := range thordHold {
 		codeString := strings.Split(td, ",")[0]
 		code, _ := strconv.Atoi(codeString)
 		thordString := strings.Split(td, ",")[1]
@@ -34,10 +42,27 @@ func GetStCode(data float64, cfgItem string) int {
 		if thord >= data && thord < vUpper {
 			StCode = code
 			vUpper = thord
+			Thord = thord
+		}
+		if index == 0 {
+			ThordFirst = thordString
+		}
+		if index == (len(thordHold) - 1) {
+			ThordLast = thordString
 		}
 	}
-	if StCode == 6 {
-		fmt.Println("function err")
+	if StCode == 110 {
+		StCode = otherStCode
 	}
+	if firstStCode < otherStCode {
+		Right = "[0" + " " + ThordFirst + "]"
+	} else {
+		Right = "[" + ThordLast + " " + "Max]"
+	}
+	fmt.Println(firstStCode)
+	fmt.Println(Thord)
+	fmt.Printf("ThordFist is %v\n", ThordFirst)
+	fmt.Printf("ThordLast is %v\n", ThordLast)
+	fmt.Println(Right)
 	return StCode
 }
