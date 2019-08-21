@@ -17,24 +17,16 @@ func SaveData() string {
 	return thordHolds
 }
 
-// GetStCode return status code
-func GetStCode(data float64, cfgItem string) int {
+// GetStCodeGood return status code
+func GetStCodeGood(data float64, cfgItem string) (stcode int, good string) {
 	StCode = 110
-	vLower := float64(-99999999999)
-	fmt.Printf("Default lower is %v\n", vLower)
 	vUpper := float64(999999999999)
-	fmt.Printf("Default upper is %v\n", vUpper)
 	thordHolds := strings.Split(cfgItem, "#")[1]
 	thordHold := strings.Split(thordHolds, ";")
 	otherStCodeString := strings.Split(cfgItem, "#")[2]
 	otherStCode, _ := strconv.Atoi(otherStCodeString)
-	firstStCodeString := strings.Split(thordHold[0], ",")[0]
-	firstStCode, _ := strconv.Atoi(firstStCodeString)
-	var Thord float64
-	var ThordZero string
-	var ThordLast string
-	var Right string
-	for index, td := range thordHold {
+	//get StCode
+	for _, td := range thordHold {
 		codeString := strings.Split(td, ",")[0]
 		code, _ := strconv.Atoi(codeString)
 		thordString := strings.Split(td, ",")[1]
@@ -42,27 +34,38 @@ func GetStCode(data float64, cfgItem string) int {
 		if thord >= data && thord < vUpper {
 			StCode = code
 			vUpper = thord
-			Thord = thord
 		}
-		if code == 0 {
-			ThordZero = thordString
-		}
-		if index == (len(thordHold) - 1) {
-			ThordLast = thordString
-		}
+
 	}
 	if StCode == 110 {
 		StCode = otherStCode
 	}
-	if firstStCode < otherStCode {
-		Right = "[0" + " " + ThordZero + "]"
-	} else {
-		Right = "[" + ThordLast + " " + "Max]"
+	//get Good
+	var Good string
+	for index, td := range thordHold {
+		codeString := strings.Split(td, ",")[0]
+		code, _ := strconv.Atoi(codeString)
+		thordString := strings.Split(td, ",")[1]
+		//thord, _ := strconv.ParseFloat(thordString, 64)
+		var before string
+		if otherStCode == 0 {
+			if index == (len(thordHold) - 1) {
+				Good = "[" + thordString + " " + "Max]"
+			}
+		} else {
+			if index == 0 && code == 0 {
+				Good = "[0" + " " + thordString + "]"
+				break
+			} else {
+				if code != 0 {
+					before = thordString
+				}
+				if code == 0 {
+					Good = "[" + before + " " + thordString + "]"
+					break
+				}
+			}
+		}
 	}
-	fmt.Println(firstStCode)
-	fmt.Println(Thord)
-	fmt.Printf("ThordZero is %v\n", ThordZero)
-	fmt.Printf("ThordLast is %v\n", ThordLast)
-	fmt.Println(Right)
-	return StCode
+	return StCode, Good
 }
