@@ -34,7 +34,6 @@ func GetStCode(data float64, cfgItem string) int {
 			StCode = code
 			vUpper = thord
 		}
-
 	}
 	if StCode == 110 {
 		StCode = otherStCode
