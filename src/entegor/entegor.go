@@ -42,12 +42,12 @@ func GetStCodeGood(data float64, cfgItem string) (stcode int, good string) {
 	}
 	//get Good
 	var Good string
+	var before string
 	for index, td := range thordHold {
 		codeString := strings.Split(td, ",")[0]
 		code, _ := strconv.Atoi(codeString)
 		thordString := strings.Split(td, ",")[1]
 		//thord, _ := strconv.ParseFloat(thordString, 64)
-		var before string
 		if otherStCode == 0 {
 			if index == (len(thordHold) - 1) {
 				Good = "[" + thordString + " " + "Max]"
