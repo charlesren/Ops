@@ -17,15 +17,14 @@ func SaveData() string {
 	return thordHolds
 }
 
-// GetStCodeGood return status code
-func GetStCodeGood(data float64, cfgItem string) (stcode int, good string) {
+// GetStCode return status code
+func GetStCode(data float64, cfgItem string) int {
 	StCode = 110
 	vUpper := float64(999999999999)
 	thordHolds := strings.Split(cfgItem, "#")[1]
 	thordHold := strings.Split(thordHolds, ";")
 	otherStCodeString := strings.Split(cfgItem, "#")[2]
 	otherStCode, _ := strconv.Atoi(otherStCodeString)
-	//get StCode
 	for _, td := range thordHold {
 		codeString := strings.Split(td, ",")[0]
 		code, _ := strconv.Atoi(codeString)
@@ -40,7 +39,16 @@ func GetStCodeGood(data float64, cfgItem string) (stcode int, good string) {
 	if StCode == 110 {
 		StCode = otherStCode
 	}
-	//get Good
+	return StCode
+}
+
+// GetGood return good range
+func GetGood(cfgItem string) string {
+	StCode = 110
+	thordHolds := strings.Split(cfgItem, "#")[1]
+	thordHold := strings.Split(thordHolds, ";")
+	otherStCodeString := strings.Split(cfgItem, "#")[2]
+	otherStCode, _ := strconv.Atoi(otherStCodeString)
 	var Good string
 	var before string
 	for index, td := range thordHold {
@@ -59,13 +67,12 @@ func GetStCodeGood(data float64, cfgItem string) (stcode int, good string) {
 			} else {
 				if code != 0 {
 					before = thordString
-				}
-				if code == 0 {
+				} else {
 					Good = "[" + before + " " + thordString + "]"
 					break
 				}
 			}
 		}
 	}
-	return StCode, Good
+	return Good
 }
