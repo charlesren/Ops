@@ -57,3 +57,10 @@ func TestGetHead(t *testing.T) {
 		t.Errorf(`head should be "abc,000,111",not %v`, head)
 	}
 }
+func TestGetWarningHead(t *testing.T) {
+	cfgItem := "abc,000,111=cpu#0,25;1,30;2,35;4,40#5"
+	head := GetWarningHead(cfgItem)
+	if head != "abc,000,-1" {
+		t.Errorf(`head should be "abc,000,-1",not %v`, head)
+	}
+}

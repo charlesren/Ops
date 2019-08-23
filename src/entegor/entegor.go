@@ -17,10 +17,17 @@ func SaveData() string {
 	return thordHolds
 }
 
-//GetHead return Get head
+//GetHead return head
 func GetHead(cfgItem string) string {
 	head := strings.Split(cfgItem, "=")[0]
 	return head
+}
+
+//GetWarningHead return Warning head
+func GetWarningHead(cfgItem string) string {
+	tempHead := strings.SplitAfter(cfgItem, ",")
+	warningHead := tempHead[0] + tempHead[1] + "-1"
+	return warningHead
 }
 
 // GetStCode return status code
