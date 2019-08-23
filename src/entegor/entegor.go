@@ -17,6 +17,12 @@ func SaveData() string {
 	return thordHolds
 }
 
+//GetHead return Get head
+func GetHead(cfgItem string) string {
+	head := strings.Split(cfgItem, "=")[0]
+	return head
+}
+
 // GetStCode return status code
 func GetStCode(data float64, cfgItem string) int {
 	StCode = 110
