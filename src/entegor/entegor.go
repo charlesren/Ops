@@ -6,6 +6,12 @@ import (
 	"strings"
 )
 
+//LongForm define long time format
+const LongForm = "2016-01-02-15:04:05"
+
+//ShortForm define short time format
+const ShortForm = "2016-01-02"
+
 // StCode is check result code
 var StCode int
 
