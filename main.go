@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"ops/src/entegor"
@@ -26,5 +27,15 @@ func main() {
 	fmt.Println(hostname)
 	now := time.Now().Format(entegor.LongForm)
 	fmt.Println(now)
+	inifile := "./inifile.ini"
+	ini, err := os.Open(inifile)
+	if err != nil {
+		log.Fatalf("failed to open file: %s", err)
+	}
+	iniScanner := bufio.NewScanner(ini)
+	for iniScanner.Scan() {
+		line := iniScanner.Text()
+		fmt.Println(line)
+	}
 	//	entegor.SaveData()
 }
