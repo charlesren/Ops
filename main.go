@@ -16,6 +16,12 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
+
+	path, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(path)
 	walkDir := "/usr"
 	filenum.ThordHold = 1000
 	filepath.Walk(walkDir, filenum.CheckNum)
