@@ -10,8 +10,8 @@ import (
 var ThordHold int
 
 type file struct {
-	name string
-	num  int
+	Name string
+	Num  int
 }
 
 // Files store directory name and file numbers
@@ -32,8 +32,8 @@ func CheckNum(path string, f os.FileInfo, err error) error {
 		}
 		if len(dir) > ThordHold {
 			iter := file{}
-			iter.name = path
-			iter.num = len(dir)
+			iter.Name = path
+			iter.Num = len(dir)
 			fmt.Printf("There are %v file or directory in %v !!!\n", len(dir), path)
 			Files = append(Files, iter)
 			return nil

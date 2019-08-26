@@ -6,6 +6,7 @@ import (
 	"log"
 	"ops/src/entegor"
 	"ops/src/filenum"
+	"ops/src/sysutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -47,10 +48,6 @@ func main() {
 	OutTmpFile := filepath.Join(TmpDir, OutTmpFileName)
 	OutFile := filepath.Join(OutDir, OutFileName)
 	fmt.Println(LogFile, OutTmpFile, OutFile)
-	walkDir := "/usr"
-	filenum.ThordHold = 1000
-	filepath.Walk(walkDir, filenum.CheckNum)
-	fmt.Println(filenum.Files)
 	hostname, err := os.Hostname()
 	if err != nil {
 		fmt.Println(err)
@@ -65,6 +62,13 @@ func main() {
 	iniScanner := bufio.NewScanner(ini)
 	for iniScanner.Scan() {
 		line := iniScanner.Text()
+		walkDir := "/usr"
+		filenum.ThordHold = 1000
+		filepath.Walk(walkDir, filenum.CheckNum)
+		fmt.Println(filenum.Files)
+		for _, file := range filenum.Files {
+			sysutil.AppendToFile(OutTmpFile, file.Name)
+		}
 		fmt.Println(line)
 	}
 	//	entegor.SaveData()
