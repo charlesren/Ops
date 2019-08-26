@@ -16,12 +16,15 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-
-	path, err := os.Getwd()
+	WorkDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(path)
+	fmt.Println(WorkDir)
+	TmpDir := filepath.Join(WorkDir, "temp")
+	OutDir := filepath.Join(WorkDir, "out")
+	LogDir := filepath.Join(WorkDir, "log")
+	fmt.Printf("%v , %v, %v\n", TmpDir, OutDir, LogDir)
 	walkDir := "/usr"
 	filenum.ThordHold = 1000
 	filepath.Walk(walkDir, filenum.CheckNum)
