@@ -34,6 +34,12 @@ func main() {
 	TmpDir := filepath.Join(WorkDir, "temp")
 	OutDir := filepath.Join(WorkDir, "out")
 	LogDir := filepath.Join(WorkDir, "log")
+	Dirs := []string{TmpDir, OutDir, LogDir}
+	for _, dir := range Dirs {
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			os.MkdirAll(dir, 0755)
+		}
+	}
 	LogFileName := scriptName + HostIP12 + ".log"
 	OutTmpFileName := scriptName + HostIP12 + ".out"
 	OutFileName := "check" + HostIP12 + ".out"
