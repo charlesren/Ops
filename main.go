@@ -17,13 +17,13 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	//INIFILE := os.Args[1]
+	//INIFile := os.Args[1]
 	//HostIP12 := os.Args[2]
 	//HostIP := os.Args[3]
-	INIFILE := "asdb.ini"
+	INIFile := "./inifile.ini"
 	HostIP12 := "011111111111"
 	HostIP := "11.111.111.111"
-	fmt.Println(INIFILE, HostIP12, HostIP)
+	fmt.Println(INIFile, HostIP12, HostIP)
 	WorkDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
@@ -52,8 +52,7 @@ func main() {
 	fmt.Println(hostname)
 	now := time.Now().Format(entegor.LongForm)
 	fmt.Println(now)
-	inifile := "./inifile.ini"
-	ini, err := os.Open(inifile)
+	ini, err := os.Open(INIFile)
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
 	}
