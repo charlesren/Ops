@@ -8,6 +8,7 @@ import (
 	"ops/src/filenum"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -16,15 +17,30 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
+	//INIFILE := os.Args[1]
+	//HostIP12 := os.Args[2]
+	//HostIP := os.Args[3]
+	INIFILE := "asdb.ini"
+	HostIP12 := "011111111111"
+	HostIP := "11.111.111.111"
+	fmt.Println(INIFILE, HostIP12, HostIP)
 	WorkDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(WorkDir)
+	_, fullScriptName := filepath.Split(os.Args[0])
+	scriptName := strings.Split(fullScriptName, ".")[0]
 	TmpDir := filepath.Join(WorkDir, "temp")
 	OutDir := filepath.Join(WorkDir, "out")
 	LogDir := filepath.Join(WorkDir, "log")
-	fmt.Printf("%v , %v, %v\n", TmpDir, OutDir, LogDir)
+	LogFileName := scriptName + HostIP12 + ".log"
+	OutTmpFileName := scriptName + HostIP12 + ".out"
+	OutFileName := "check" + HostIP12 + ".out"
+	LogFile := filepath.Join(LogDir, LogFileName)
+	OutTmpFile := filepath.Join(TmpDir, OutTmpFileName)
+	OutFile := filepath.Join(OutDir, OutFileName)
+	fmt.Println(LogFile, OutTmpFile, OutFile)
 	walkDir := "/usr"
 	filenum.ThordHold = 1000
 	filepath.Walk(walkDir, filenum.CheckNum)
