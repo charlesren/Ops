@@ -15,11 +15,18 @@ const ShortForm = "2016-01-02"
 var StCode int
 
 // SaveData save check result
-func SaveData(stCode int, cfgItem string, now string, data string, descMsg string) string {
-	head := GetHead(cfgItem)
+func SaveData(stCode int, cfgItem string, now string, data float64, descMsg string) string {
+	var result string
 	good := GetGood(cfgItem)
 	stCodeString := strconv.Itoa(stCode)
-	result := head + "=" + stCodeString + "|" + now + data + good + descMsg
+	dataString := strconv.FormatFloat(data, 'E', 1, 64)
+	if stCode == 0 {
+		head := GetHead(cfgItem)
+		result = head + "=" + stCodeString + "|" + now + "|" + dataString + "|" + good + "|" + descMsg
+	} else {
+		head := GetWarningHead(cfgItem)
+		result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + dataString + "|" + good + "|" + descMsg
+	}
 	return result
 }
 
