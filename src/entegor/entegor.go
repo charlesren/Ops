@@ -15,10 +15,11 @@ const ShortForm = "2016-01-02"
 var StCode int
 
 // SaveData save check result
-func SaveData(stCode string, cfgItem string, now string, data string, descMsg string) string {
+func SaveData(stCode int, cfgItem string, now string, data string, descMsg string) string {
 	head := GetHead(cfgItem)
 	good := GetGood(cfgItem)
-	result := head + "=" + stCode + "|" + now + data + good + descMsg
+	stCodeString := strconv.Itoa(stCode)
+	result := head + "=" + stCodeString + "|" + now + data + good + descMsg
 	return result
 }
 
