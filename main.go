@@ -52,7 +52,7 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(hostname)
-	now := time.Now().Format(entegor.LongForm)
+	checkTime := time.Now().Format(entegor.LongForm)
 	ini, err := os.Open(INIFile)
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
@@ -84,10 +84,10 @@ func main() {
 		var result string
 		if stCode == 0 {
 			head := entegor.GetHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + now + "|" + DataString + "|" + good + "|" + descMsg + "\n"
+			result = head + "=" + stCodeString + "|" + checkTime + "|" + DataString + "|" + good + "|" + descMsg + "\n"
 		} else {
 			head := entegor.GetWarningHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
+			result = head + "=" + stCodeString + "|" + checkTime + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
 		}
 		sysutil.WriteToFile(OutTmpFile, result)
 		sysutil.AppendToFile(OutFile, result)
