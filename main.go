@@ -94,6 +94,7 @@ func main() {
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(OutTmpFile, file.Name)
 		}
+		sysutil.AppendToFile(OutTmpFile, result)
 		result = entegor.SaveData(stCode, cfgItem, now, Data, walkDir)
 		fmt.Println(result)
 	}
