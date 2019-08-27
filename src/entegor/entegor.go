@@ -1,7 +1,6 @@
 package entegor
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -16,11 +15,11 @@ const ShortForm = "2016-01-02"
 var StCode int
 
 // SaveData save check result
-func SaveData() string {
-	cfgItem := "abc#0,25;1,30;2,35;4,40#5"
-	thordHolds := strings.Split(cfgItem, "#")[1]
-	fmt.Println(thordHolds)
-	return thordHolds
+func SaveData(stCode string, cfgItem string, now string, data string, descMsg string) string {
+	head := GetHead(cfgItem)
+	good := GetGood(cfgItem)
+	result := head + "=" + stCode + "|" + now + data + good + descMsg
+	return result
 }
 
 //GetHead return head
