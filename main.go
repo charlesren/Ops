@@ -76,25 +76,20 @@ func main() {
 		good := entegor.GetGood(cfgItem)
 		stCodeString := strconv.Itoa(stCode)
 		DataString := strconv.FormatFloat(Data, 'E', 1, 64)
-		warnMsg := ""
+		var WarnMsg string
+		fmt.Println(filenum.Files)
+		for _, file := range filenum.Files {
+			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
+		}
 		var result string
 		if stCode == 0 {
 			head := entegor.GetHead(cfgItem)
 			result = head + "=" + stCodeString + "|" + now + "|" + DataString + "|" + good + "|" + descMsg + "\n"
 		} else {
 			head := entegor.GetWarningHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + warnMsg + "\n"
+			result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
 		}
-		sysutil.AppendToFile(OutFile, result)
-		fmt.Println(filenum.Files)
-		for _, file := range filenum.Files {
-			fmt.Println(file)
-			sysutil.AppendToFile(OutTmpFile, file.Name)
-		}
-		sysutil.AppendToFile(OutFile, result)
 		sysutil.WriteToFile(OutTmpFile, result)
-		result = entegor.SaveData(stCode, cfgItem, now, Data, walkDir)
-		fmt.Println(result)
+		sysutil.AppendToFile(OutFile, result)
 	}
-	//	entegor.SaveData()
 }
