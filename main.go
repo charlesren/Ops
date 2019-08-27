@@ -78,11 +78,24 @@ func main() {
 		}
 		stCode := entegor.GetStCode(Data, cfgItem)
 		fmt.Println(stCode)
+		var result string
+		descMsg := walkDir
+		good := entegor.GetGood(cfgItem)
+		stCodeString := strconv.Itoa(stCode)
+		DataString := strconv.FormatFloat(Data, 'E', 1, 64)
+		warnMsg := ""
+		if stCode == 0 {
+			head := entegor.GetHead(cfgItem)
+			result = head + "=" + stCodeString + "|" + now + "|" + DataString + "|" + good + "|" + descMsg
+		} else {
+			head := entegor.GetWarningHead(cfgItem)
+			result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + "fullScriptName" + "|" + "filenum.ErrCode" + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + warnMsg
+		}
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(OutTmpFile, file.Name)
 		}
-		good := entegor.GetGood(cfgItem)
-		fmt.Println(good)
+		result = entegor.SaveData(stCode, cfgItem, now, Data, walkDir)
+		fmt.Println(result)
 	}
 	//	entegor.SaveData()
 }
