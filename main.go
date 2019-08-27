@@ -9,6 +9,7 @@ import (
 	"ops/src/sysutil"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -61,15 +62,27 @@ func main() {
 	}
 	iniScanner := bufio.NewScanner(ini)
 	for iniScanner.Scan() {
-		line := iniScanner.Text()
-		walkDir := "/usr"
-		filenum.ThordHold = 1000
+		cfgItem := iniScanner.Text()
+		fmt.Println("cfgItem:", cfgItem)
+		walkDir := strings.Split(cfgItem, "|")[0]
+		fmt.Println(walkDir)
+		filenum.ThordHold, _ = strconv.Atoi(strings.Split(strings.Split(cfgItem, "#")[0], "|")[1])
+		fmt.Println(filenum.ThordHold)
 		filepath.Walk(walkDir, filenum.CheckNum)
 		fmt.Println(filenum.Files)
+		var Data float64
+		if filenum.Files == nil {
+			Data = float64(0)
+		} else {
+			Data = float64(1)
+		}
+		stCode := entegor.GetStCode(Data, cfgItem)
+		fmt.Println(stCode)
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(OutTmpFile, file.Name)
 		}
-		fmt.Println(line)
+		good := entegor.GetGood(cfgItem)
+		fmt.Println(good)
 	}
 	//	entegor.SaveData()
 }
