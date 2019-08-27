@@ -17,6 +17,9 @@ type file struct {
 // Files store directory name and file numbers
 var Files []file
 
+//ErrCode define errcode number of filenum func
+const ErrCode = "29999"
+
 // WalkDir define the directory you want to walk
 //var WalkDir string
 
