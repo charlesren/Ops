@@ -49,7 +49,8 @@ func main() {
 	LogFile := filepath.Join(LogDir, LogFileName)
 	OutTmpFile := filepath.Join(TmpDir, OutTmpFileName)
 	OutFile := filepath.Join(OutDir, OutFileName)
-	fmt.Println(LogFile, OutTmpFile, OutFile)
+	sysutil.WriteToFile(OutTmpFile, "")
+	sysutil.WriteToFile(LogFile, "")
 	hostname, err := os.Hostname()
 	if err != nil {
 		fmt.Println(err)
@@ -82,6 +83,7 @@ func main() {
 		var WarnMsg string
 		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
+			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
 			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
 		}
 		var result string
@@ -92,7 +94,8 @@ func main() {
 			head := entegor.GetWarningHead(cfgItem)
 			result = head + "=" + stCodeString + "|" + checkTime + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
 		}
-		sysutil.WriteToFile(OutTmpFile, result)
+		sysutil.AppendToFile(OutTmpFile, result)
 		sysutil.AppendToFile(OutFile, result)
 	}
+	//sysutil.AppendToFile(OutFile, result)
 }
