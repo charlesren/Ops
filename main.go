@@ -19,12 +19,14 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	//INIFile := os.Args[1]
-	//HostIP12 := os.Args[2]
-	//HostIP := os.Args[3]
-	INIFile := "./inifile.ini"
-	HostIP12 := "011111111111"
-	HostIP := "11.111.111.111"
+	INIFile := os.Args[1]
+	HostIP12 := os.Args[2]
+	HostIP := os.Args[3]
+	/*
+		INIFile := "./inifile.ini"
+		HostIP12 := "011111111111"
+		HostIP := "11.111.111.111"
+	*/
 	WorkDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
