@@ -63,7 +63,7 @@ func main() {
 	iniScanner := bufio.NewScanner(ini)
 	for iniScanner.Scan() {
 		cfgItem := iniScanner.Text()
-		walkDir := strings.Split(cfgItem, "|")[0]
+		walkDir := strings.Split(strings.Split(cfgItem, "|")[0], "=")[1]
 		filenum.ThordHold, _ = strconv.Atoi(strings.Split(strings.Split(cfgItem, "#")[0], "|")[1])
 		fmt.Println(filenum.ThordHold)
 		filepath.Walk(walkDir, filenum.CheckNum)
