@@ -27,6 +27,7 @@ func main() {
 		HostIP12 := "011111111111"
 		HostIP := "11.111.111.111"
 	*/
+	fmt.Println(INIFile, HostIP12, HostIP)
 	WorkDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
