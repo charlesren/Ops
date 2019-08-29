@@ -14,6 +14,31 @@ const ShortForm = "2006-01-02"
 // StCode is check result code
 var StCode int
 
+//OutMessage store check out message
+type OutMessage struct {
+	Head       string
+	StCode     int
+	CheckTime  string
+	CheckData  string
+	Threadhold string
+	DescMsg    string
+}
+
+//WarningMessage store check warning message
+type WarningMessage struct {
+	Head       string
+	StCode     int
+	CheckTime  string
+	GMESSENGER string
+	ScriptName string
+	ErrCode    string
+	Hostname   string
+	HostIP     string
+	CheckData  string
+	Threadhold string
+	DescMsg    string
+}
+
 // SaveData save check result
 func SaveData(stCode int, cfgItem string, now string, data float64, descMsg string) string {
 	var result string
