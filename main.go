@@ -22,11 +22,7 @@ func main() {
 	_, fullScriptName := filepath.Split(os.Args[0])
 	scriptName := strings.Split(fullScriptName, ".")[0]
 	LogFile, OutTmpFile, OutFile := entegor.PrepareFile(HostIP12, scriptName)
-	hostname, err := os.Hostname()
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(hostname)
+	hostname := entegor.GetHostname()
 	checkTime := time.Now().Format(entegor.LongForm)
 	ini, err := os.Open(INIFile)
 	if err != nil {

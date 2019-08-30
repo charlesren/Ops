@@ -1,6 +1,7 @@
 package entegor
 
 import (
+	"fmt"
 	"log"
 	"ops/src/sysutil"
 	"os"
@@ -49,6 +50,15 @@ func SetLang() {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+//GetHostname reture hostname of os
+func GetHostname() (hostname string) {
+	hostname, err := os.Hostname()
+	if err != nil {
+		fmt.Println(err)
+	}
+	return hostname
 }
 
 //PrepareFile prepare file used to save log ,tempout and out file.
