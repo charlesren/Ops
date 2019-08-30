@@ -79,7 +79,7 @@ func main() {
 		descMsg := walkDir
 		good := entegor.GetGood(cfgItem)
 		stCodeString := strconv.Itoa(stCode)
-		DataString := strconv.FormatFloat(Data, 'E', 1, 64)
+		DataString := strconv.FormatFloat(Data, 'f', -1, 64)
 		var WarnMsg string
 		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
