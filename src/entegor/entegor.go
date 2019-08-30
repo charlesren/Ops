@@ -19,6 +19,23 @@ const ShortForm = "2006-01-02"
 // StCode is check result code
 var StCode int
 
+//Message store check message
+type Message struct {
+	OutHead    string
+	Stcode     int
+	CheckTime  string
+	CheckData  string
+	Threadhold string
+	OutDesc    string
+	WarnHead   string
+	GMESSENGER string
+	ScriptName string
+	ErrCode    string
+	Hostname   string
+	HostIP     string
+	WarnDesc   string
+}
+
 //OutMessage store check out message
 type OutMessage struct {
 	OutHead    string
