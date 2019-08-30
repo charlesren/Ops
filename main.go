@@ -15,42 +15,13 @@ import (
 )
 
 func main() {
-	err := os.Setenv("LANG", "en_US")
-	if err != nil {
-		log.Println(err)
-	}
+	entegor.SetLang()
 	INIFile := os.Args[1]
 	HostIP12 := os.Args[2]
 	HostIP := os.Args[3]
-	/*
-		INIFile := "./inifile.ini"
-		HostIP12 := "011111111111"
-		HostIP := "11.111.111.111"
-	*/
-	fmt.Println(INIFile, HostIP12, HostIP)
-	WorkDir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
 	_, fullScriptName := filepath.Split(os.Args[0])
 	scriptName := strings.Split(fullScriptName, ".")[0]
-	TmpDir := filepath.Join(WorkDir, "temp")
-	OutDir := filepath.Join(WorkDir, "out")
-	LogDir := filepath.Join(WorkDir, "log")
-	Dirs := []string{TmpDir, OutDir, LogDir}
-	for _, dir := range Dirs {
-		if _, err := os.Stat(dir); os.IsNotExist(err) {
-			os.MkdirAll(dir, 0755)
-		}
-	}
-	LogFileName := scriptName + HostIP12 + ".log"
-	OutTmpFileName := scriptName + HostIP12 + ".out"
-	OutFileName := "check" + HostIP12 + ".out"
-	LogFile := filepath.Join(LogDir, LogFileName)
-	OutTmpFile := filepath.Join(TmpDir, OutTmpFileName)
-	OutFile := filepath.Join(OutDir, OutFileName)
-	sysutil.WriteToFile(OutTmpFile, "")
-	sysutil.WriteToFile(LogFile, "")
+	LogFile, OutTmpFile, OutFile := entegor.PrepareFile(HostIP12, scriptName)
 	hostname, err := os.Hostname()
 	if err != nil {
 		fmt.Println(err)
