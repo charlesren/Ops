@@ -20,6 +20,9 @@ var Files []file
 //ErrCode define errcode number of filenum func
 const ErrCode = "29999"
 
+//WarnDesc describle waring message
+const WarnDesc = "File or dir number out of range"
+
 // WalkDir define the directory you want to walk
 //var WalkDir string
 
