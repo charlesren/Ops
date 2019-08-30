@@ -10,6 +10,9 @@ import (
 	"strings"
 )
 
+//GMESSENGER means AOMS
+const GMESSENGER = "AOMS"
+
 //LongForm define long time format
 const LongForm = "2006-01-02 15:04:05"
 
