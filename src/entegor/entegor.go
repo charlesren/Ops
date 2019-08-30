@@ -21,17 +21,17 @@ var StCode int
 
 //OutMessage store check out message
 type OutMessage struct {
-	Head       string
+	OutHead    string
 	StCode     int
 	CheckTime  string
 	CheckData  string
 	Threadhold string
-	DescMsg    string
+	OutDesc    string
 }
 
 //WarningMessage store check warning message
 type WarningMessage struct {
-	Head       string
+	WarnHead   string
 	StCode     int
 	CheckTime  string
 	GMESSENGER string
