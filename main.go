@@ -87,15 +87,16 @@ func main() {
 			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
 		}
 		var result string
-		if stCode == 0 {
-			head := entegor.GetHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + checkTime + "|" + DataString + "|" + good + "|" + descMsg + "\n"
-		} else {
-			head := entegor.GetWarningHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + checkTime + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
-		}
+		head := entegor.GetHead(cfgItem)
+		result = head + "=" + stCodeString + "|" + checkTime + "|" + DataString + "|" + good + "|" + descMsg + "\n"
 		sysutil.AppendToFile(OutTmpFile, result)
 		sysutil.AppendToFile(OutFile, result)
+		if stCode != 0 {
+			head := entegor.GetWarningHead(cfgItem)
+			result = head + "=" + stCodeString + "|" + checkTime + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
+			sysutil.AppendToFile(OutTmpFile, result)
+			sysutil.AppendToFile(OutFile, result)
+		}
 	}
 	//sysutil.AppendToFile(OutFile, result)
 }
