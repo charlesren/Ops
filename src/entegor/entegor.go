@@ -2,7 +2,9 @@ package entegor
 
 import (
 	"log"
+	"ops/src/sysutil"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -47,6 +49,32 @@ func SetLang() {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+//PrepareFile prepare file used to save log ,tempout and out file.
+func PrepareFile(HostIP12 string, scriptName string) (LogFile string, OutTmpFile string, OutFile string) {
+	WorkDir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	TmpDir := filepath.Join(WorkDir, "temp")
+	OutDir := filepath.Join(WorkDir, "out")
+	LogDir := filepath.Join(WorkDir, "log")
+	Dirs := []string{TmpDir, OutDir, LogDir}
+	for _, dir := range Dirs {
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			os.MkdirAll(dir, 0755)
+		}
+	}
+	LogFileName := scriptName + HostIP12 + ".log"
+	OutTmpFileName := scriptName + HostIP12 + ".out"
+	OutFileName := "check" + HostIP12 + ".out"
+	LogFile = filepath.Join(LogDir, LogFileName)
+	OutTmpFile = filepath.Join(TmpDir, OutTmpFileName)
+	OutFile = filepath.Join(OutDir, OutFileName)
+	sysutil.WriteToFile(OutTmpFile, "")
+	sysutil.WriteToFile(LogFile, "")
+	return LogFile, OutTmpFile, OutFile
 }
 
 // SaveData save check result
