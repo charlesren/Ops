@@ -36,7 +36,7 @@ type WarningMessage struct {
 	HostIP     string
 	CheckData  string
 	Threadhold string
-	DescMsg    string
+	WarnDesc   string
 }
 
 // SaveData save check result
