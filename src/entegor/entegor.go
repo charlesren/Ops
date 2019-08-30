@@ -1,6 +1,8 @@
 package entegor
 
 import (
+	"log"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -37,6 +39,14 @@ type WarningMessage struct {
 	CheckData  string
 	Threadhold string
 	WarnDesc   string
+}
+
+//SetLang set os locale to en_US.UTF-8
+func SetLang() {
+	err := os.Setenv("LANG", "en_US.UTF-8")
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 // SaveData save check result
