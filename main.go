@@ -60,6 +60,7 @@ func main() {
 			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
 			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
 		}
+		Message.OutDesc = Message.OutDesc + "|" + WarnMsg
 		var result string
 		Message.OutHead = entegor.GetHead(cfgItem)
 		result = Message.OutHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.OutDesc + "\n"
