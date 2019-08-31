@@ -22,8 +22,15 @@ func main() {
 	_, fullScriptName := filepath.Split(os.Args[0])
 	scriptName := strings.Split(fullScriptName, ".")[0]
 	LogFile, OutTmpFile, OutFile := entegor.PrepareFile(HostIP12, scriptName)
-	hostname := entegor.GetHostname()
-	checkTime := time.Now().Format(entegor.LongForm)
+	var Message entegor.Message
+	Message.WarnDesc = filenum.WarnDesc
+	Message.Hostname = entegor.GetHostname()
+	Message.CheckTime = time.Now().Format(entegor.LongForm)
+	Message.ErrCode = filenum.ErrCode
+	Message.Script = fullScriptName
+	Message.GMESSENGER = entegor.GMESSENGER
+	Message.HostIP = HostIP
+	Message.WarnDesc = filenum.WarnDesc
 	ini, err := os.Open(INIFile)
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
@@ -42,11 +49,11 @@ func main() {
 		} else {
 			Data = float64(1)
 		}
-		stCode := entegor.GetStCode(Data, cfgItem)
-		descMsg := walkDir
-		good := entegor.GetGood(cfgItem)
-		stCodeString := strconv.Itoa(stCode)
-		DataString := strconv.FormatFloat(Data, 'f', -1, 64)
+		Message.StCode = entegor.GetStCode(Data, cfgItem)
+		Message.OutDesc = walkDir
+		Message.Threadhold = entegor.GetGood(cfgItem)
+		//	stCodeString := strconv.Itoa(Message.StCode)
+		Message.CheckData = strconv.FormatFloat(Data, 'f', -1, 64)
 		var WarnMsg string
 		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
@@ -54,13 +61,13 @@ func main() {
 			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
 		}
 		var result string
-		head := entegor.GetHead(cfgItem)
-		result = head + "=" + stCodeString + "|" + checkTime + "|" + DataString + "|" + good + "|" + descMsg + "\n"
+		Message.OutHead = entegor.GetHead(cfgItem)
+		result = Message.OutHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.OutDesc + "\n"
 		sysutil.AppendToFile(OutTmpFile, result)
 		sysutil.AppendToFile(OutFile, result)
-		if stCode != 0 {
-			head := entegor.GetWarningHead(cfgItem)
-			result = head + "=" + stCodeString + "|" + checkTime + "|" + "AOMS" + "|" + fullScriptName + "|" + filenum.ErrCode + "|" + hostname + "|" + HostIP + "|" + "" + "|" + "" + "|" + WarnMsg + "\n"
+		if Message.StCode != 0 {
+			Message.WarnHead = entegor.GetWarningHead(cfgItem)
+			result = Message.WarnHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.GMESSENGER + "|" + Message.Script + "|" + Message.ErrCode + "|" + Message.Hostname + "|" + Message.HostIP + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.WarnDesc + "\n"
 			sysutil.AppendToFile(OutTmpFile, result)
 			sysutil.AppendToFile(OutFile, result)
 		}
