@@ -32,7 +32,7 @@ type Message struct {
 	OutDesc    string
 	WarnHead   string
 	GMESSENGER string
-	ScriptName string
+	Script     string
 	ErrCode    string
 	Hostname   string
 	HostIP     string
