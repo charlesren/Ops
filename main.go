@@ -61,16 +61,16 @@ func main() {
 			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
 		}
 		Message.OutDesc = Message.OutDesc + "|" + WarnMsg
-		var result string
 		Message.OutHead = entegor.GetHead(cfgItem)
-		result = fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
-		sysutil.AppendToFile(OutTmpFile, result)
-		sysutil.AppendToFile(OutFile, result)
+		outData := fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
+		sysutil.AppendToFile(OutTmpFile, outData)
+		sysutil.AppendToFile(OutFile, outData)
 		if Message.StCode != 0 {
+			Message.WarnDesc = Message.WarnDesc + ":" + WarnMsg
 			Message.WarnHead = entegor.GetWarningHead(cfgItem)
-			result = fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v:%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc, WarnMsg)
-			sysutil.AppendToFile(OutTmpFile, result)
-			sysutil.AppendToFile(OutFile, result)
+			warnData := fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc)
+			sysutil.AppendToFile(OutTmpFile, warnData)
+			sysutil.AppendToFile(OutFile, warnData)
 		}
 	}
 	//sysutil.AppendToFile(OutFile, result)
