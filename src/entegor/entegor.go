@@ -25,7 +25,7 @@ var StCode int
 //Message store check message
 type Message struct {
 	OutHead    string
-	Stcode     int
+	StCode     int
 	CheckTime  string
 	CheckData  string
 	Threadhold string
