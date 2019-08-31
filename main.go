@@ -54,19 +54,19 @@ func main() {
 		Message.Threadhold = entegor.GetGood(cfgItem)
 		//	stCodeString := strconv.Itoa(Message.StCode)
 		Message.CheckData = strconv.FormatFloat(Data, 'f', -1, 64)
-		var WarnMsg string
+		var Msg string
 		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
-			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
+			Msg = Msg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
 		}
-		Message.OutDesc = Message.OutDesc + "|" + WarnMsg
+		Message.OutDesc = Message.OutDesc + "|" + Msg
 		Message.OutHead = entegor.GetHead(cfgItem)
 		outData := fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
 		sysutil.AppendToFile(OutTmpFile, outData)
 		sysutil.AppendToFile(OutFile, outData)
 		if Message.StCode != 0 {
-			Message.WarnDesc = Message.WarnDesc + ":" + WarnMsg
+			Message.WarnDesc = Message.WarnDesc + ":" + Msg
 			Message.WarnHead = entegor.GetWarningHead(cfgItem)
 			warnData := fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc)
 			sysutil.AppendToFile(OutTmpFile, warnData)
