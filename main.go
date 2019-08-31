@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"ops/src/entegor"
 	"ops/src/filenum"
@@ -59,16 +58,8 @@ func main() {
 		}
 		Message.OutDesc = Message.OutDesc + "|" + Msg
 		Message.OutHead = entegor.GetHead(cfgItem)
-		outData := fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
-		sysutil.AppendToFile(OutTmpFile, outData)
-		sysutil.AppendToFile(OutFile, outData)
-		if Message.StCode != 0 {
-			Message.WarnDesc = Message.WarnDesc + ":" + Msg
-			Message.WarnHead = entegor.GetWarningHead(cfgItem)
-			warnData := fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc)
-			sysutil.AppendToFile(OutTmpFile, warnData)
-			sysutil.AppendToFile(OutFile, warnData)
-		}
+		Message.WarnDesc = Message.WarnDesc + ":" + Msg
+		Message.WarnHead = entegor.GetWarningHead(cfgItem)
+		entegor.SaveData(&Message, OutTmpFile, OutFile)
 	}
-	//sysutil.AppendToFile(OutFile, result)
 }
