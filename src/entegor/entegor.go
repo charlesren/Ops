@@ -108,19 +108,15 @@ func PrepareFile(HostIP12 string, scriptName string) (LogFile string, OutTmpFile
 }
 
 // SaveData save check result
-func SaveData(stCode int, cfgItem string, now string, data float64, descMsg string) string {
-	var result string
-	good := GetGood(cfgItem)
-	stCodeString := strconv.Itoa(stCode)
-	dataString := strconv.FormatFloat(data, 'E', 1, 64)
-	if stCode == 0 {
-		head := GetHead(cfgItem)
-		result = head + "=" + stCodeString + "|" + now + "|" + dataString + "|" + good + "|" + descMsg
-	} else {
-		head := GetWarningHead(cfgItem)
-		result = head + "=" + stCodeString + "|" + now + "|" + "AOMS" + "|" + dataString + "|" + good + "|" + descMsg
+func SaveData(OutTmpFile string, OutFile string, Message *Message) {
+	outData := fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
+	sysutil.AppendToFile(OutTmpFile, outData)
+	sysutil.AppendToFile(OutFile, outData)
+	if Message.StCode != 0 {
+		warnData := fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc)
+		sysutil.AppendToFile(OutTmpFile, warnData)
+		sysutil.AppendToFile(OutFile, warnData)
 	}
-	return result
 }
 
 //GetHead return head
