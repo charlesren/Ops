@@ -58,7 +58,7 @@ func main() {
 		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
-			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + "\n"
+			WarnMsg = WarnMsg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
 		}
 		Message.OutDesc = Message.OutDesc + "|" + WarnMsg
 		var result string
