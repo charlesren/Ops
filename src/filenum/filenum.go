@@ -9,13 +9,14 @@ import (
 // ThordHold is a leve
 var ThordHold int
 
-type file struct {
+//Dir store directory name and total num of file and dir it contains
+type Dir struct {
 	Name string
 	Num  int
 }
 
-// Files store directory name and file numbers
-var Files []file
+// Dirs store directory name and file numbers
+var Dirs []Dir
 
 //ErrCode define errcode number of filenum func
 const ErrCode = "29999"
@@ -32,16 +33,16 @@ func CheckNum(path string, f os.FileInfo, err error) error {
 		return err
 	}
 	if f.IsDir() {
-		dir, err := ioutil.ReadDir(path)
+		info, err := ioutil.ReadDir(path)
 		if err != nil {
 			return err
 		}
-		if len(dir) > ThordHold {
-			iter := file{}
+		if len(info) > ThordHold {
+			iter := Dir{}
 			iter.Name = path
-			iter.Num = len(dir)
-			fmt.Printf("There are %v file or directory in %v !!!\n", len(dir), path)
-			Files = append(Files, iter)
+			iter.Num = len(info)
+			fmt.Printf("There are %v file or directory in %v !!!\n", len(info), path)
+			Dirs = append(Dirs, iter)
 			return nil
 		}
 	}

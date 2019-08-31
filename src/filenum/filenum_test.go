@@ -10,5 +10,5 @@ func TestCheckNum(t *testing.T) {
 	WalkDir := "/usr"
 	ThordHold = 1000
 	filepath.Walk(WalkDir, CheckNum)
-	fmt.Println(Files)
+	fmt.Println(Dirs)
 }
