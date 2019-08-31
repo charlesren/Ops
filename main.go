@@ -42,7 +42,6 @@ func main() {
 		filenum.ThordHold, _ = strconv.Atoi(strings.Split(strings.Split(cfgItem, "#")[0], "|")[1])
 		filepath.Walk(walkDir, filenum.CheckNum)
 		Dirs := &filenum.Dirs
-		fmt.Println(*Dirs)
 		var Data float64
 		if *Dirs == nil {
 			Data = float64(0)
