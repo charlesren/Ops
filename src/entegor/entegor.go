@@ -108,7 +108,7 @@ func PrepareFile(HostIP12 string, scriptName string) (LogFile string, OutTmpFile
 }
 
 // SaveData save check result
-func SaveData(OutTmpFile string, OutFile string, Message *Message) {
+func SaveData(Message *Message, OutTmpFile string, OutFile string) {
 	outData := fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
 	sysutil.AppendToFile(OutTmpFile, outData)
 	sysutil.AppendToFile(OutFile, outData)
