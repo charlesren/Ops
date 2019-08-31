@@ -68,7 +68,7 @@ func main() {
 		sysutil.AppendToFile(OutFile, result)
 		if Message.StCode != 0 {
 			Message.WarnHead = entegor.GetWarningHead(cfgItem)
-			result = Message.WarnHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.GMESSENGER + "|" + Message.Script + "|" + Message.ErrCode + "|" + Message.Hostname + "|" + Message.HostIP + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.WarnDesc + "\n"
+			result = Message.WarnHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.GMESSENGER + "|" + Message.Script + "|" + Message.ErrCode + "|" + Message.Hostname + "|" + Message.HostIP + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.WarnDesc + ":" + WarnMsg + "\n"
 			sysutil.AppendToFile(OutTmpFile, result)
 			sysutil.AppendToFile(OutFile, result)
 		}
