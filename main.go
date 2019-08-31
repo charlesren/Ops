@@ -63,12 +63,12 @@ func main() {
 		Message.OutDesc = Message.OutDesc + "|" + WarnMsg
 		var result string
 		Message.OutHead = entegor.GetHead(cfgItem)
-		result = Message.OutHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.OutDesc + "\n"
+		result = fmt.Sprintf("%v=%v|%v|%v|%v|%v\n", Message.OutHead, Message.StCode, Message.CheckTime, Message.CheckData, Message.Threadhold, Message.OutDesc)
 		sysutil.AppendToFile(OutTmpFile, result)
 		sysutil.AppendToFile(OutFile, result)
 		if Message.StCode != 0 {
 			Message.WarnHead = entegor.GetWarningHead(cfgItem)
-			result = Message.WarnHead + "=" + strconv.Itoa(Message.StCode) + "|" + Message.CheckTime + "|" + Message.GMESSENGER + "|" + Message.Script + "|" + Message.ErrCode + "|" + Message.Hostname + "|" + Message.HostIP + "|" + Message.CheckData + "|" + Message.Threadhold + "|" + Message.WarnDesc + ":" + WarnMsg + "\n"
+			result = fmt.Sprintf("%v=%v|%v|%v|%v|%v|%v|%v|%v|%v|%v|:%v\n", Message.WarnHead, Message.StCode, Message.CheckTime, Message.GMESSENGER, Message.Script, Message.ErrCode, Message.Hostname, Message.HostIP, Message.CheckData, Message.Threadhold, Message.WarnDesc, WarnMsg)
 			sysutil.AppendToFile(OutTmpFile, result)
 			sysutil.AppendToFile(OutFile, result)
 		}
