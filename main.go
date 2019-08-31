@@ -40,7 +40,6 @@ func main() {
 		cfgItem := iniScanner.Text()
 		walkDir := strings.Split(strings.Split(cfgItem, "|")[0], "=")[1]
 		filenum.ThordHold, _ = strconv.Atoi(strings.Split(strings.Split(cfgItem, "#")[0], "|")[1])
-		fmt.Println(filenum.ThordHold)
 		filepath.Walk(walkDir, filenum.CheckNum)
 		fmt.Println(filenum.Files)
 		var Data float64
@@ -52,10 +51,8 @@ func main() {
 		Message.StCode = entegor.GetStCode(Data, cfgItem)
 		Message.OutDesc = walkDir
 		Message.Threadhold = entegor.GetGood(cfgItem)
-		//	stCodeString := strconv.Itoa(Message.StCode)
 		Message.CheckData = strconv.FormatFloat(Data, 'f', -1, 64)
 		var Msg string
-		fmt.Println(filenum.Files)
 		for _, file := range filenum.Files {
 			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
 			Msg = Msg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
