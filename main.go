@@ -41,9 +41,10 @@ func main() {
 		walkDir := strings.Split(strings.Split(cfgItem, "|")[0], "=")[1]
 		filenum.ThordHold, _ = strconv.Atoi(strings.Split(strings.Split(cfgItem, "#")[0], "|")[1])
 		filepath.Walk(walkDir, filenum.CheckNum)
-		fmt.Println(filenum.Dirs)
+		Dirs := &filenum.Dirs
+		fmt.Println(*Dirs)
 		var Data float64
-		if filenum.Dirs == nil {
+		if *Dirs == nil {
 			Data = float64(0)
 		} else {
 			Data = float64(1)
@@ -53,7 +54,7 @@ func main() {
 		Message.Threadhold = entegor.GetGood(cfgItem)
 		Message.CheckData = strconv.FormatFloat(Data, 'f', -1, 64)
 		var Msg string
-		for _, file := range filenum.Dirs {
+		for _, file := range *Dirs {
 			sysutil.AppendToFile(LogFile, file.Name+"   "+strconv.Itoa(file.Num)+"\n")
 			Msg = Msg + file.Name + "   " + strconv.Itoa(file.Num) + ";"
 		}
