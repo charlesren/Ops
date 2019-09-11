@@ -41,6 +41,16 @@ OUTFILE="${OUT}/check${HP12}.out"
 > ${TMPFILE}
 > ${LOGFILE}
 while read vR
+vCfgItem=`getConfigItem "${vR}"`
+initDir="$vCfgItem%%|*"
+echo $initDir
+thordhold="$vCfgItem##*|"
+echo thordhold
+Dirs[0]=initDir
+pwd=`pwd`
+totalNum=`ls  -al |wc -l`
+ls -al |tail -n +4 |grep "^d" |awk '{print $9}'
+ls -al |tail -n +4 |grep "^d" |awk '{print $pwd$9}'
 
 do
 
